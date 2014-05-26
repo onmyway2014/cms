@@ -1,2 +1,2 @@
-cms
+cms for study ruby
 ===
