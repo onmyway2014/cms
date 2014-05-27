@@ -1,7 +1,6 @@
 require 'uri'
 
 class Resource
-
   attr_reader :uri
 
   def initialize(uri)
@@ -10,13 +9,27 @@ class Resource
     if uri.instance_of?(String)
       raise ArgumentError, 'uri is string but its empty!' if uri.empty?
 
-      u = URI.parse uri
-      raise ArgumentError, "uri:#{uri} is invalid!" if u.scheme.nil?
+      begin
+        u = URI.parse uri
+      rescue URI::InvalidURIError
+        raise ArgumentError, "uri:#{uri} is bad URI!"
+      end
+
+      raise ArgumentError, "uri:#{uri} is bad URI!" if u.scheme.nil?
       @uri = u
     else
       @uri = uri
     end
   end
 
+  def get
+    raise 'not implement'
+
+  end
+
+  def put (data)
+    raise 'not implement'
+    #raise ArgumentError if data.nil?
+  end
 
 end
