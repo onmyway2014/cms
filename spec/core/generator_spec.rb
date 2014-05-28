@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
-require './src/core/generator'
-require './src/core/resource'
-require './src/core/template_engine_factory'
+require './lib/core/generator'
+require './lib/core/resource'
+require './lib/core/template_engine_factory'
 
 module Cms
 

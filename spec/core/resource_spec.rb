@@ -1,5 +1,5 @@
 require_relative '../spec_helper'
-require './src/core/resource'
+require './lib/core/resource'
 require 'uri'
 
 module Cms
