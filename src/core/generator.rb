@@ -5,6 +5,7 @@ module Cms
   class Generator
 
     attr_reader :model_resource, :template_resource, :destination_resource
+    attr_accessor :engine_type
 
     def initialize (model_resource, template_resource, destination_resource)
       raise ArgumentError, 'model_resource is nil' if model_resource.nil?
@@ -15,33 +16,27 @@ module Cms
       @template_resource = template_resource
       @destination_resource = destination_resource
 
-
+      @engine_type = 'default'
     end
 
-    def run
+    # @return [TrueClass,FalseClass]
+    def run?
       model = model_resource.get
-      template = template_resource.get
+      template = template_resource.get.to_s
 
-      template_engine = factory.engine 'eob'
+      template_engine = engine_factory.create @engine_type
 
       result = template_engine.render model, template
 
       destination_resource.put result
 
-      @success = true
-    end
-
-    def success?
-      @success
+      true
     end
 
     private
-    def factory
-      if @template_engine_factory.nil?
-        @template_engine_factory = TemplateEngineFactory.new
-      end
-      @template_engine_factory
-    end
+    def engine_factory
+      @template_engine_factory = TemplateEngineFactory.new if @template_engine_factory.nil?
+    end   
 
   end
 end
