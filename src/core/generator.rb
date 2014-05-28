@@ -4,7 +4,7 @@ module Cms
 
   class Generator
 
-    attr_reader :model_resource, :template_resource, :destination_resource
+    attr_reader :model_resource, :template_resource, :destination_resource, :result, :content_filters
     attr_accessor :engine_type
 
     def initialize (model_resource, template_resource, destination_resource)
@@ -17,18 +17,26 @@ module Cms
       @destination_resource = destination_resource
 
       @engine_type = 'default'
+      @result = ''
+      @content_filters = []
     end
 
-    # @return [TrueClass,FalseClass]
     def run?
       model = model_resource.get
-      template = template_resource.get.to_s
+      return failed 'model resource get data is nil' if model.nil?
+
+      template_str = template_resource.get.to_s
+      return failed 'template resource get data is empty' if template_str.empty?
 
       template_engine = engine_factory.create @engine_type
 
-      result = template_engine.render model, template
+      content = template_engine.render model, template_str
 
-      destination_resource.put result
+      content_filters.each do |filter|
+        return failed "cancelled by filter:#{filter.name}" unless filter.do? content
+      end
+
+      destination_resource.put content
 
       true
     end
@@ -36,7 +44,12 @@ module Cms
     private
     def engine_factory
       @template_engine_factory = TemplateEngineFactory.new if @template_engine_factory.nil?
-    end   
+    end
+
+    def failed(message)
+      @result = message
+      false
+    end
 
   end
 end
