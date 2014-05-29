@@ -5,9 +5,10 @@ module Cms
 
     class BuiltinResource < ResourceBase
 
-      def initialize(uri)
+      def initialize(uri,data=nil)
         @scheme = 'builtin'
-        super
+        super(uri)
+        @data = data unless data.nil?
       end
 
       def put(data)

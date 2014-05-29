@@ -1,13 +1,12 @@
 require_relative './template_engine_base'
+require 'slim'
 
 module Cms
   module Core
-
-    # default template engine
-    class NullTemplateEngine < TemplateEngineBase
+    class SlimTemplateEngine < TemplateEngineBase
 
       def render_for(template_context, template)
-        template_context.model.to_s
+        Slim::Template.new(){template}.render(template_context)
       end
     end
 

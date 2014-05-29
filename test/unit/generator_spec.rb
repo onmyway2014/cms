@@ -85,7 +85,7 @@ module Cms
           g.content_filters << f
 
           g.should_not be_run
-          g.result.should == "cancelled by filter:#{filter_name}"
+          g.result.should == "canceled by filter:#{filter_name}"
         end
       end
 

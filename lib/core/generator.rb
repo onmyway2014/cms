@@ -2,11 +2,28 @@ require_relative './template_engine/template_engine_factory'
 
 module Cms
   module Core
+
+    #
+    # CMS core class for generate
+    #
     class Generator
 
-      attr_reader :model_resource, :template_resource, :destination_resource, :result, :content_filters
+      # @return [ResourceBase]
+      attr_reader :model_resource, :template_resource, :destination_resource
+
+      # @return [String]
+      attr_reader :result
+
+      # @return [Array<ContentFilterBase>]
+      attr_reader :content_filters
+
+      # template engine type
+      # @return [Symbol]
       attr_accessor :engine_type
 
+      # @param [ResourceBase] model_resource
+      # @param [ResourceBase] template_resource
+      # @param [ResourceBase] destination_resource
       def initialize (model_resource, template_resource, destination_resource)
         raise ArgumentError, 'model_resource is nil' if model_resource.nil?
         raise ArgumentError, 'template_resource is nil' if template_resource.nil?
@@ -16,11 +33,15 @@ module Cms
         @template_resource = template_resource
         @destination_resource = destination_resource
 
-        @engine_type = 'default'
+        @engine_type = :default
         @result = ''
         @content_filters = []
       end
 
+      #
+      #  process
+      #
+      # @return [true,false]
       def run?
         model = model_resource.get
         return failed 'model resource get data is nil' if model.nil?
@@ -33,7 +54,7 @@ module Cms
         content = template_engine.render model, template_str
 
         content_filters.each do |filter|
-          return failed "cancelled by filter:#{filter.name}" unless filter.do? content
+          return failed "canceled by filter:#{filter.name}" unless filter.do? content
         end
 
         destination_resource.put content

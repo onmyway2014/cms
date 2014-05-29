@@ -3,8 +3,13 @@ require 'uri'
 module Cms
   module Core
     class ResourceBase
+
+      # returns the URI
+      # @return [URI]
+      # @param [URI]
       attr_reader :uri
 
+      # @param [URI] uri
       def initialize(uri)
         raise ArgumentError, 'uri is nil' if uri.nil?
 
