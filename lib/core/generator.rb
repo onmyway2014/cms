@@ -33,7 +33,7 @@ module Cms
         @template_resource = template_resource
         @destination_resource = destination_resource
 
-        @engine_type = :default
+        @engine_type = TemplateEngineFactory::ENGINE_DEFAULT
         @result = ''
         @content_filters = []
       end

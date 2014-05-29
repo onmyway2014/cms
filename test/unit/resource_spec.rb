@@ -33,7 +33,7 @@ module Cms
       describe 'BuiltinResource' do
 
         it 'should exception when init given uri scheme not builtin' do
-          expect { BuiltinResource.new 'Builtin://data' }.to_not raise_error
+          expect { BuiltinResource.new 'Builtin://data' }.not_to raise_error
           expect { BuiltinResource.new 'file:///tmp/test.html' }.to raise_error(ArgumentError, 'scheme incorrect')
         end
 
@@ -72,6 +72,7 @@ module Cms
           assert_write 'file://localhost/tmp/test.txt', 'Hello'
           assert_write 'file:///tmp/test2.txt', '<h1>World<h1>'
           assert_write 'file:///tmp/test3.txt?encoding=utf-8', "bye\nbye"
+          assert_write 'file://c:/tmp/test4.txt','Hello'
 
         end
 
@@ -89,7 +90,8 @@ module Cms
         it 'should be read' do
           assert_read 'file://localhost/tmp/test.txt', 'Hello'
           assert_read 'file:///tmp/test2.txt', '<h1>World<h1>'
-          assert_write 'file:///tmp/test3.txt?encoding=utf-8', "bye\nbye"
+          assert_read 'file:///tmp/test3.txt?encoding=utf-8', "bye\nbye"
+          assert_read 'file://c:/tmp/test4.txt','Hello'
         end
       end
 

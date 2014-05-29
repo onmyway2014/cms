@@ -8,7 +8,7 @@ module Cms
   module Core
     class TemplateEngineFactory
 
-      ENGINE_DEFAULT = :default
+      ENGINE_DEFAULT = :null
 
       ENGINE_ERB = :erb
 
@@ -16,27 +16,16 @@ module Cms
 
       ENGINE_ERUBIS = :erubis
 
+      ENGINE_HAML = :haml
+
       #
       #
-      # @param [String] engine_type
+      # @param [Symbol] engine_type
       # @return [TemplateEngineBase]
       def create(engine_type)
-
-        case engine_type
-          when ENGINE_ERB
-            ErbTemplateEngine.new
-
-          when ENGINE_SLIM
-            SlimTemplateEngine.new
-
-          when ENGINE_ERUBIS
-            ErubisTemplateEngine.new
-
-          when ENGINE_DEFAULT
-            NullTemplateEngine.new
-          else
-            raise "not fund engine:#{engine_type}"
-        end
+        class_name = "#{engine_type.capitalize}TemplateEngine"
+        raise "not support engine:#{class_name}" unless Cms::Core.const_defined? class_name
+        Cms::Core.const_get(class_name).new
       end
     end
   end

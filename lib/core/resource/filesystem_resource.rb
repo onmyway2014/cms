@@ -11,9 +11,6 @@ module Cms
       end
 
       def put(data)
-        # File.open(@filename, 'w') do |f|
-        #   f.write data
-        # end
         File.write(@filename, data)
       end
 

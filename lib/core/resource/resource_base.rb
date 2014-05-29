@@ -41,8 +41,6 @@ module Cms
         #raise ArgumentError if data.nil?
       end
 
-
-
     end
   end
 end
