@@ -2,6 +2,7 @@ require_relative '../spec_helper'
 require './lib/core/resource/resource_base'
 require './lib/core/resource/builtin_resource'
 require './lib/core/resource/filesystem_resource'
+require './lib/core/resource/http_resource'
 require 'uri'
 
 module Cms
@@ -34,7 +35,7 @@ module Cms
 
         it 'should exception when init given uri scheme not builtin' do
           expect { BuiltinResource.new 'Builtin://data' }.not_to raise_error
-          expect { BuiltinResource.new 'file:///tmp/test.html' }.to raise_error(ArgumentError, 'scheme incorrect')
+          expect { BuiltinResource.new 'file:///tmp/test.html' }.to raise_error(ArgumentError, 'scheme not match,scheme:\'builtin\'')
         end
 
         it 'should be read and write' do
@@ -52,7 +53,7 @@ module Cms
       describe 'FilesystemResource' do
 
         it 'should exception when init given uri scheme not file' do
-          expect { FilesystemResource.new 'fpt://www.google.com' }.to raise_error(ArgumentError, 'scheme incorrect')
+          expect { FilesystemResource.new 'ftp://www.google.com' }.to raise_error(ArgumentError, "scheme not match,scheme:'file'")
         end
 
         def assert_write(uri_str, content)
@@ -92,6 +93,20 @@ module Cms
           assert_read 'file:///tmp/test2.txt', '<h1>World<h1>'
           assert_read 'file:///tmp/test3.txt?encoding=utf-8', "bye\nbye"
           assert_read 'file://c:/tmp/test4.txt','Hello'
+        end
+      end
+
+      describe 'HttpResource' do
+        it 'should be read' ,:RequireNet=>true do
+          uri_str = 'http://www.baidu.com'
+          http = HttpResource.new uri_str
+          data = http.get
+          data.should_not be_empty
+          data.force_encoding('UTF-8').should be_include('<title>百度一下，你就知道</title>')
+        end
+
+        it 'should not be write' do
+          expect{HttpResource.new('http://www.baidu.com').put('hello')}.to raise_error('not implemented')
         end
       end
 

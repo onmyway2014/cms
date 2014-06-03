@@ -7,3 +7,6 @@ gem 'rake'
 gem 'erubis'
 gem 'haml'
 gem 'slim'
+
+gem 'rest-client'
+gem 'oj'

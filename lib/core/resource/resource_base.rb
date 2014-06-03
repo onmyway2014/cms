@@ -28,7 +28,7 @@ module Cms
           @uri = uri
         end
 
-        raise ArgumentError,'scheme incorrect' unless @uri.scheme == @scheme
+        raise ArgumentError, "scheme not match,scheme:'#{@scheme}'" unless @uri.scheme == @scheme
       end
 
       def get
@@ -37,7 +37,7 @@ module Cms
       end
 
       def put (data)
-        raise 'not implement'
+        raise 'not implemented'
         #raise ArgumentError if data.nil?
       end
 
