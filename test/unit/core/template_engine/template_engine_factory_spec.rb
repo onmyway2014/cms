@@ -1,9 +1,9 @@
-require_relative '../../spec_helper'
+require './test/spec_helper'
 require './lib/core/template_engine/template_engine_factory'
 
 module Cms
   module Core
-    describe 'Core::TemplateEngineFactory' do
+    describe 'Engine::TemplateEngineFactory' do
 
        it 'should error when create not support engine' do
         factory = TemplateEngineFactory.new

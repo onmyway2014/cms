@@ -6,13 +6,8 @@ module Cms
 
     describe 'Resource::BuiltinResource' do
 
-      it 'should exception when init given uri scheme not builtin' do
-        expect { BuiltinResource.new 'Builtin://data' }.not_to raise_error
-        expect { BuiltinResource.new 'file:///tmp/test.html' }.to raise_error(ArgumentError, 'scheme not match,scheme:\'builtin\'')
-      end
-
       it 'should be read and write' do
-        br = BuiltinResource.new 'builtin://data'
+        br = BuiltinResource.new
 
         br.get.should == nil
         br.put 'Hello'
@@ -20,6 +15,11 @@ module Cms
 
         br.put 'World'
         br.get.should == 'World'
+
+        b2 = BuiltinResource.new 'data'
+        b2.get.should == 'data'
+        b2.put 'write data'
+        b2.get.should == 'write data'
       end
     end
 

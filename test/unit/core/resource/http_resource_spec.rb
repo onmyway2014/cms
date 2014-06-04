@@ -1,12 +1,17 @@
 require './test/spec_helper'
 require './lib/core/resource/http_resource'
+require './lib/core/resource/resource_base'
+require 'net/http'
 
 module Cms
   module Core
     describe 'Resource::HttpResource' do
 
-      it 'should be read', :RequireNet => true do
+      it 'should be read' do
         uri_str = 'http://www.baidu.com'
+
+        Net::HTTP.should_receive(:get).and_return('<html><title>百度一下，你就知道</title></html>')
+
         http = HttpResource.new uri_str
         data = http.get
         data.should_not be_empty

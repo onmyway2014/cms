@@ -1,5 +1,5 @@
 require 'net/http'
-require 'rest-client'
+require_relative './resource_base'
 
 module Cms
   module Core
@@ -11,8 +11,8 @@ module Cms
       end
 
       def get
-        # Net::HTTP.get uri
-        RestClient.get uri.to_s
+        Net::HTTP.get uri
+        # RestClient.get uri.to_s
       end
 
     end
