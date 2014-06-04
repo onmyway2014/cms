@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require_relative '../../spec_helper'
 require './lib/core/template_engine/template_engine_factory'
 
 module Cms

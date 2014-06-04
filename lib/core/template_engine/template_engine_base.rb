@@ -18,10 +18,12 @@ module Cms
 
       protected
 
+=begin
       # @param [TemplateContext] template_context
       def render_for(template_context, template)
         raise 'not implement'
       end
+=end
     end
   end
 end

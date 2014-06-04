@@ -1,5 +1,5 @@
-require_relative '../spec_helper'
-require_relative '../model_create_helper'
+require_relative '../../spec_helper'
+require_relative '../../model_create_helper'
 require './lib/core/template_engine/erb_template_engine'
 require './lib/core/template_engine/haml_template_engine'
 require './lib/core/template_engine/erubis_template_engine'

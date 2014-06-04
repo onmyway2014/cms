@@ -24,7 +24,7 @@ module Cms
       # @param [ResourceBase] model_resource
       # @param [ResourceBase] template_resource
       # @param [ResourceBase] destination_resource
-      def initialize (model_resource, template_resource, destination_resource)
+      def initialize(model_resource, template_resource, destination_resource)
         raise ArgumentError, 'model_resource is nil' if model_resource.nil?
         raise ArgumentError, 'template_resource is nil' if template_resource.nil?
         raise ArgumentError, 'destination_resource is nil' if destination_resource.nil?
