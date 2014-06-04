@@ -28,15 +28,18 @@ module Cms
       end
 
       it 'using http resource and putin builtin resource with erb engine' do
-        t = BuiltinResource.new '<%=model.size%>'
-        m = HttpResource.new 'http://www.baidu.com'
+        t = BuiltinResource.new 'content:<%=model%>'
+        m = HttpResource.new 'http://www.host.cms'
         d = BuiltinResource.new 'builtin://Data'
+
+        # mock http request
+        Net::HTTP.should_receive(:get).and_return('<html><title>百度一下，你就知道</title></html>')
 
         g = Generator.new m, t, d
         g.engine_type = TemplateEngineFactory::ENGINE_ERB
         g.should be_run
 
-        d.get.to_i.should > 0
+        d.get.should == 'content:<html><title>百度一下，你就知道</title></html>'
       end
     end
   end

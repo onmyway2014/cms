@@ -8,7 +8,7 @@ module Cms
     describe 'Resource::HttpResource' do
 
       it 'should be read' do
-        uri_str = 'http://www.baidu.com'
+        uri_str = 'http://www.host.cms'
 
         Net::HTTP.should_receive(:get).and_return('<html><title>百度一下，你就知道</title></html>')
 

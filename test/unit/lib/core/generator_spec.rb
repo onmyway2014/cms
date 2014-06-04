@@ -1,4 +1,4 @@
-require_relative '../../spec_helper'
+require './test/spec_helper'
 require './lib/core/generator'
 require './lib/core/resource/resource_base'
 require './lib/core/template_engine/template_engine_factory'
