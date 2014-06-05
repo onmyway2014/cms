@@ -20,7 +20,7 @@ module Cms
         template_engine.stub(:render).with(model_data, template_data).and_return render_result
 
         template_engine_factory = TemplateEngineFactory.new
-        template_engine_factory.stub(:create).with(engine_type).and_return template_engine
+        template_engine_factory.stub(:create).with(engine_type).and_return(template_engine)
         TemplateEngineFactory.stub(:new).and_return template_engine_factory
 
         generator = Generator.new(model_r, template_r, dest_r)
