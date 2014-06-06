@@ -2,10 +2,12 @@ require_relative 'resource_base'
 
 module Cms
   module Core
+
     class FilesystemResource < ResourceBase
+      SCHEME = 'file'
 
       def initialize(uri)
-        @scheme = 'file'
+        # @scheme = 'file'
         super
         @filename = @uri.path
       end

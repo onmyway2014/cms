@@ -3,12 +3,9 @@ require_relative './resource_base'
 
 module Cms
   module Core
-    class HttpResource < ResourceBase
 
-      def initialize (uri)
-        @scheme = 'http'
-        super
-      end
+    class HttpResource < ResourceBase
+      SCHEME = 'http'
 
       def get
         Net::HTTP.get uri

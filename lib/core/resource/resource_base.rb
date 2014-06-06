@@ -28,7 +28,8 @@ module Cms
           @uri = uri
         end
 
-        raise ArgumentError, "scheme not match,scheme:'#{@scheme}'" unless @uri.scheme == @scheme
+        raise ArgumentError, "scheme not match,scheme:'#{self.class::SCHEME}'" unless @uri.scheme == self.class::SCHEME
+
       end
 
       def get

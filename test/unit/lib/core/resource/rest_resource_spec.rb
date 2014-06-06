@@ -11,8 +11,11 @@ module Cms
       it 'should be instance' do
         expect{RESTfulResource.new}.to raise_error(ArgumentError)
         expect{RESTfulResource.new(nil)}.to raise_error(ArgumentError)
-        RESTfulResource.new 'http://www.host.cms'
+        r = RESTfulResource.new 'http://www.host.cms'
+        RESTfulResource::SCHEME.should == 'http'
         expect{RESTfulResource.new 'ftp://www.host.cms'}.to raise_error(ArgumentError)
+
+
       end
 
       it 'should be read' do

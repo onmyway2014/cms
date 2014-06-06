@@ -13,3 +13,5 @@ gem 'slim'
 gem 'rest-client'
 gem 'oj'
 
+gem 'hashie'
+gem 'hashable'
