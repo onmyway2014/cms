@@ -9,13 +9,11 @@ module Cms
       include ModelCreateHelper
 
       it 'should be instance' do
+        RESTfulResource::SCHEME.should == 'http'
         expect{RESTfulResource.new}.to raise_error(ArgumentError)
         expect{RESTfulResource.new(nil)}.to raise_error(ArgumentError)
-        r = RESTfulResource.new 'http://www.host.cms'
-        RESTfulResource::SCHEME.should == 'http'
+        RESTfulResource.new 'http://www.host.cms'
         expect{RESTfulResource.new 'ftp://www.host.cms'}.to raise_error(ArgumentError)
-
-
       end
 
       it 'should be read' do
