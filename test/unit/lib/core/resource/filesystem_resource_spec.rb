@@ -31,6 +31,10 @@ module Cms
 
       end
 
+      it 'should be write when directories not exist' do
+        assert_write 'file://c:/tmp/mytest/test/test/test/test/test.txt', 'Hello'
+      end
+
       def assert_read(uri_str, content)
         filename = URI.parse(uri_str).path
         File.write(filename, content)
